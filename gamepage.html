@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family:'Roboto', sans-serif;
+            font-size: 24px;
+            background-color: lightskyblue;
+            transition: background-color 1s ease, background-image 1s ease;
+            background-image: linear-gradient(45deg, lightcoral, lightskyblue, lightpink);
+           
+        }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            color: darkslategray;
+            text-shadow: 2px 2px 4px gray;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-family: 'Arial', sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            color: darkslategray;
+            text-shadow: 2px 2px 4px gray;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            width: 250px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            outline: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            color: #fff;
+            background-color: #2193b0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #176f8c;
+            transform: scale(1.05);
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            input[type="number"] {
+                width: 200px;
+                font-size: 1rem;
+            }
+
+            button {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+
+            p, #output {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Guessing Game</h1>
+    <p>Enter the range for the guessing game:</p>
+    <input type="number" id="maxRange" placeholder="Max value">
+    <button id="startGameButton">Start Game</button>
+    <p id="output"></p>
+    <button onclick="window.location.href='index.html';">Go Back</button>
+
+    <script>
+        let randomNum, maxRange;
+        const minRange = 1; // Minimum range
+
+        document.getElementById('startGameButton').addEventListener('click', () => {
+            // Get the range input
+            maxRange = parseInt(document.getElementById('maxRange').value);
+
+            // Validate the range
+            if (isNaN(maxRange) || maxRange <= 0) {
+                document.getElementById('output').textContent = "Invalid range. Please enter a valid number.";
+                return;
+            }
+
+            // Generate a random number between 1 and maxRange
+            randomNum = Math.floor(Math.random() * maxRange) + 1;
+            document.getElementById('output').textContent = `Game started! Guess a number between ${minRange} and ${maxRange}.`;
+            startGuessingGame();
+        });
+
+        function startGuessingGame() {
+            let guess = prompt(`Enter your guess:`);
+
+            // Handle cancel action
+            if (guess === null) return;
+
+            guess = parseInt(guess);
+
+            if (isNaN(guess)) {
+                alert("Invalid input! Please enter a number.");
+                startGuessingGame();
+            } else if (guess < randomNum) {
+                alert("Too low! Try again.");
+                startGuessingGame();
+            } else if (guess > randomNum) {
+                alert("Too high! Try again.");
+                startGuessingGame();
+            } else {
+                alert("Congratulations! You guessed the correct number.");
+                document.getElementById('output').textContent = `You guessed it! The number was ${randomNum}.`;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+       <!-- //game logic 
+        // let num = Math.random();
+        // // console.log(num);
+        // num = num*100;
+        // //multiplying with 100 beacause range is 99 
+        // //we want to generate numbers till 99
+        // //99 beacuse Math.random() will never generate 1
+        // num = Math.floor(num);
+        // //now if we want to generate numbers till 100 so add 1
+        // num=num+1;
+        // //console.log(num);
+        // //summarize = Math.floor((Math.random()*5)+1) range = 1 to 5
+        // //range = 20 to 30 
+        // let num2 = (Math.random()*10)+19+1; // 19 to genrate 20 
+        // //+1 to generate 30
+        // num2=Math.floor(num2);
+        // console.log(num2);
+         -->
